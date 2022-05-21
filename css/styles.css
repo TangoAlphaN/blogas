@@ -32,3 +32,24 @@ div.flash-error {
     background-color: #f0f0f0;
     border: 2px solid red;
 }
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+input[type=text]{
+    padding:5px;
+    width: 100%;
+    margin: 5px;
+    outline: 8px ridge rgba(32, 32, 121, 0.6);
+    border-radius: 2rem;
+}
+
+. form-group .toggle-all {
+    text-align: center;
+    border: none;
+    opacity: 0;
+    position: absolute;
+}

@@ -15,6 +15,8 @@ class BilletVue extends Vue {
         case self::LISTE_VUE:
             $content = $this->liste();
             break;
+        default:
+            break;
         }
         return $this->userPage($content);
     }

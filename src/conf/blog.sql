@@ -27,7 +27,7 @@ SET time_zone = "+00:00";
 --
 -- Structure de la table `billets`
 --
-
+DROP TABLE IF EXISTS `billets`;
 CREATE TABLE `billets` (
   `id` int NOT NULL,
   `titre` varchar(64) DEFAULT NULL,
@@ -42,15 +42,16 @@ CREATE TABLE `billets` (
 
 INSERT INTO `billets` (`id`, `titre`, `body`, `cat_id`, `date`) VALUES
 (1, 'go sluc, go', 'tout est dans le titre', 1, '2014-11-20'),
-(2, 'Concert : nolwenn live', 'c\'est d\'la balle, Ca vaut bien Mick Jagger et Iggy Stooges réunis.\r\nAngus Young doit l\'ecouter en boucle...', 3, '2014-11-20'),
-(3, 'Titanic', 'c\'est l\'histoire d\'un gros bateau qui croise un glaçon', 2, '2014-11-20');
+(2, 'Concert : nolwenn live', 'de la balle, Ca vaut bien Mick Jagger et Iggy Stooges réunis.\r\nAngus Young doit ecouter en boucle...', 3, '2014-11-20'),
+(3, 'Titanic', 'un gros bateau qui croise un glaçon', 2, '2014-11-20'),
+(4, 'Josef The Cat', 'a demoniac ginger cat', 5, '2022-05-15');
 
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `categories`
 --
-
+DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `id` int NOT NULL,
   `titre` varchar(64) NOT NULL,
@@ -66,18 +67,16 @@ INSERT INTO `categories` (`id`, `titre`, `description`) VALUES
 (2, 'cinema', 'tout sur le cinema'),
 (3, 'music', "toute la music que j'aaiiiimeuh, elle vient de la, elle vient du bluuuuuuzee"),
 (4, 'tele', 'tout sur les programmes tele, les emissions, les series, et vos stars preferes'),
-(8, 'test', 'catégorie de test'),
-(9, 'test', 'catégorie de test'),
-(10, 'test', 'catégorie de test');
+(5, 'diver', 'infos diverses');
 
 -- --------------------------------------------------------
 
 --
 -- Structure de la table `categories`
 --
-
+DROP TABLE IF EXISTS `membres`;
 CREATE TABLE `membres` (
-  `id` int NOT NULL AUTO_INCREMENT,
+  `id` int NOT NULL,
   `pseudo` varchar(15) NOT NULL,
   `nom` varchar(15) NOT NULL,
   `prenom` varchar(15) NOT NULL,
@@ -137,6 +136,16 @@ ALTER TABLE `categories`
 ALTER TABLE `billets`
   ADD CONSTRAINT `categ` FOREIGN KEY (`cat_id`) REFERENCES `categories` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
+
+INSERT INTO `membres` (`id`, `pseudo`, `nom`, `prenom`, `mail`, `mdp_hash`, `droit`) VALUES
+(1, 'JosefZeCat', 'Parisse', 'Josef', 'JosefZeCat@mail.com', '$2y$10$3l21SWW6coA.qZPgfBA.vulJX1FYIq.DamD21tEFLQ3Y4IWViIGGS', 0),
+(2, 'Toofik', 'Godfrin', 'Emilien', 'Toofik@mail.com', '$2y$10$qNUabGPUov4KdpWgvOh3o.f9m0E6tYVNK0vqY6EiwFe4asZMm.mhC', 1);
+COMMIT;
+
+/*
+INSERT INTO `commentaires` (`id`, `billet`, `content`, `auteur`, `date`) VALUES
+    (1, 4, 'Attaquer les humains naifs, rien de plus fun', 'JosefZeCat', '2022-05-21');
+ */
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
