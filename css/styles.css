@@ -1,5 +1,6 @@
 body {
     background-color: lightblue;
+    font-family : "Times New Roman", Times, sans-serif;
 }
 
 div.flash-info {
@@ -39,11 +40,10 @@ div.flash-error {
     justify-content: space-between;
 }
 
-input[type=text]{
-    padding:5px;
+input[type=text] .txtarea{
     width: 100%;
     margin: 5px;
-    outline: 8px ridge rgba(32, 32, 121, 0.6);
+    outline: 8px ridge darkblue;
     border-radius: 2rem;
 }
 
@@ -52,4 +52,29 @@ input[type=text]{
     border: none;
     opacity: 0;
     position: absolute;
+}
+
+.choice {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin : 5px;
+}
+
+h1 {
+    text-align: center;
+    font-size: 1.2em;
+    font-family : "Times New Roman", Times, sans-serif;
+    color: aliceblue;
+}
+
+h2 {
+    text-align: left;
+    font-size: 1em;
+    font-family : "Times New Roman", Times, sans-serif;
+    color: darkgray;
+}
+
+form{
+    font-family : "Times New Roman", Times, sans-serif;
 }

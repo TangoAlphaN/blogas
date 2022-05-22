@@ -66,13 +66,13 @@ INSERT INTO `categories` (`id`, `titre`, `description`) VALUES
 (1, 'sport', 'tout sur le sport en general'),
 (2, 'cinema', 'tout sur le cinema'),
 (3, 'music', "toute la music que j'aaiiiimeuh, elle vient de la, elle vient du bluuuuuuzee"),
-(4, 'tele', 'tout sur les programmes tele, les emissions, les series, et vos stars preferes'),
-(5, 'diver', 'infos diverses');
+(4, 'TV', 'tout sur les programmes tele, les emissions, les series, et vos stars preferes'),
+(5, 'Other', 'infos diverses');
 
 -- --------------------------------------------------------
 
 --
--- Structure de la table `categories`
+-- Structure de la table `membres`
 --
 DROP TABLE IF EXISTS `membres`;
 CREATE TABLE `membres` (
@@ -84,6 +84,34 @@ CREATE TABLE `membres` (
   `mdp_hash` varchar(62) NOT NULL,
   `droit` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `membres`
+--
+INSERT INTO `membres` (`id`, `pseudo`, `nom`, `prenom`, `mail`, `mdp_hash`, `droit`) VALUES
+    (1, 'JosefZeCat', 'Parisse', 'Josef', 'JosefZeCat@mail.com', '$2y$10$3l21SWW6coA.qZPgfBA.vulJX1FYIq.DamD21tEFLQ3Y4IWViIGGS', 0),
+    (2, 'Toofik', 'Godfrin', 'Emilien', 'Toofik@mail.com', '$2y$10$qNUabGPUov4KdpWgvOh3o.f9m0E6tYVNK0vqY6EiwFe4asZMm.mhC', 1);
+COMMIT;
+
+--
+-- Structure de la table `commentaires`
+--
+DROP TABLE IF EXISTS `commentaires`;
+CREATE TABLE IF NOT EXISTS `commentaires` (
+    `id` int NOT NULL,
+    `billet` int(11) NOT NULL,
+    `content` varchar(400) NOT NULL,
+    `auteur` varchar(50) NOT NULL,
+    `date` date DEFAULT NULL,
+    PRIMARY KEY (`id`)
+    ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `commentaires`
+--
+INSERT INTO `commentaires` (`id`, `billet`, `content`, `auteur`, `date`) VALUES
+    (1, 4, 'Attaquer les humains naifs, rien de plus fun', 'JosefZeCat', '2022-05-21');
+
 
 --
 -- Index pour les tables déchargées
@@ -127,6 +155,18 @@ ALTER TABLE `categories`
   MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
+-- AUTO_INCREMENT pour la table `membres`
+--
+ALTER TABLE `membres`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
+-- AUTO_INCREMENT pour la table `commentaires`
+--
+ALTER TABLE `commentaires`
+  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+
+--
 -- Contraintes pour les tables déchargées
 --
 
@@ -136,16 +176,6 @@ ALTER TABLE `categories`
 ALTER TABLE `billets`
   ADD CONSTRAINT `categ` FOREIGN KEY (`cat_id`) REFERENCES `categories` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT;
 COMMIT;
-
-INSERT INTO `membres` (`id`, `pseudo`, `nom`, `prenom`, `mail`, `mdp_hash`, `droit`) VALUES
-(1, 'JosefZeCat', 'Parisse', 'Josef', 'JosefZeCat@mail.com', '$2y$10$3l21SWW6coA.qZPgfBA.vulJX1FYIq.DamD21tEFLQ3Y4IWViIGGS', 0),
-(2, 'Toofik', 'Godfrin', 'Emilien', 'Toofik@mail.com', '$2y$10$qNUabGPUov4KdpWgvOh3o.f9m0E6tYVNK0vqY6EiwFe4asZMm.mhC', 1);
-COMMIT;
-
-/*
-INSERT INTO `commentaires` (`id`, `billet`, `content`, `auteur`, `date`) VALUES
-    (1, 4, 'Attaquer les humains naifs, rien de plus fun', 'JosefZeCat', '2022-05-21');
- */
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -34,9 +34,9 @@ $app = new \Slim\App($configuration);
 // Routes qui redirige vers la liste de billets
 $app->get('/',
     function ($rq,$rs,$args){
-        return $rs->withRedirect($this['router']->pathFor('billet_liste'));
+        return $rs->withRedirect($this['router']->pathFor('billet_liste',['numpage'=>"1"]));
         })
-    ->setName('billet_aff');
+    ->setName('billet');
 
 // Affichage d'un billet
 $app->get('/billet/{id}',
@@ -44,31 +44,53 @@ $app->get('/billet/{id}',
     ->setName('billet_aff');
 
 // Affichage de tous les billets
-$app->get('/billets',
+$app->get('/billets/{numpage}',
           '\blogapp\controleur\BilletControleur:liste')
     ->setName('billet_liste');
 
-// Création utilisateur
+// Création d'un utilisateur
 $app->get('/newutil',
           '\blogapp\controleur\UtilisateurControleur:nouveau')
     ->setName('util_nouveau');
 
-// Suite à la création utilisateur
+// Suite à la création d'un utilisateur
 $app->post('/createutil',
           '\blogapp\controleur\UtilisateurControleur:cree')
     ->setName('util_cree');
 
 // Connexion d'un utilisateur
-$app->post('/connexion',
-    '\blogapp\controleur\MembreControleur:connexion')
+$app->get('/connexion',
+        '\blogapp\controleur\MembreControleur:connexion')
     ->setName('memb_connect');
 
-$app->post('/deconnexion',
-    '\blogapp\controleur\MembreControleur:connexion')
+// Deconnexion d'un utilisateur
+$app->get('/deconnexion',
+        '\blogapp\controleur\MembreControleur:deconnexion')
     ->setName('memb_deconnect');
 
+// Suite à la connexion d'un utilisateur
 $app->post('/authentification',
-    '\blogapp\controleur\MembreControleur:authentifie')
-    ->setName('memb_authen');
+        '\blogapp\controleur\MembreControleur:authentifie')
+    ->setName('memb_authent');
+
+// Nouveau billet
+$app->get('/newbill',
+        '\blogapp\controleur\NewBillControleur:nouveau')
+    ->setName('bill_nouveau');
+
+// Suite à la création d'un billet
+$app->post('/createbill',
+        '\blogapp\controleur\NewBillControleur:saisie')
+    ->setName('bill_cree');
+
+// Nouveau commentaire
+$app->get('/commentaire',
+        '\blogapp\controleur\BilletControleur:affiche')
+    ->setName('nouveau_com');
+
+// Suite à la création d'un commentaire
+$app->post('/commente/{id}',
+        '\blogapp\controleur\BilletControleur:ajoute')
+    ->setName('com_ajout');
 
 $app->run();
